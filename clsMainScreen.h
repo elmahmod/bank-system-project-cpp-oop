@@ -1,8 +1,8 @@
 #pragma once
 #include <iostream>
-#include <iomanip>
-#include "clsScreen.h"
-#include "clsInputValidate.h"
+#include "screens/clsScreen.h"
+#include "screens/clsClientListScreen.h"
+#include "libraries/clsInputValidate.h"
 
 class clsMainScreen : protected clsScreen
 {
@@ -28,7 +28,8 @@ private:
 
     static void _showAllClientsScreen()
     {
-        cout << "\n\tShow Client List Screen will be here soon . . .\n";
+        // cout << "\n\tShow Client List Screen will be here soon . . .\n";
+        clsClientLisstScreen::showClientList();
     }
 
     static void _showAddNewClientScreen()
@@ -111,6 +112,7 @@ public:
         enMainMenuOptions option;
         do
         {
+            system("cls");
             _drawScreenHeader("Main Screen");
             cout << setw(37) << left << "" << string(60, '=') << endl;
             cout << setw(62) << left << "" << "Main Menu" << endl;

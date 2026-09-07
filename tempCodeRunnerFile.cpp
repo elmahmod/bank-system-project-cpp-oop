@@ -1,2 +1,0 @@
-
-    clsMainScreen::showMainMenu();
