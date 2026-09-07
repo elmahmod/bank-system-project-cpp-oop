@@ -29,7 +29,7 @@ private:
     static void _showAllClientsScreen()
     {
         // cout << "\n\tShow Client List Screen will be here soon . . .\n";
-        clsClientLisstScreen::showClientList();
+        clsClientListScreen::showClientList();
     }
 
     static void _showAddNewClientScreen()
