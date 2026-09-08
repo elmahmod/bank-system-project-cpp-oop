@@ -28,7 +28,7 @@ public:
         cout << setw(8) << "" << string(110, '_') << endl
              << endl;
 
-        cout << setw(8) << "" << "| " << left << setw(20) << "Accout Number";
+        cout << setw(8) << "" << "| " << left << setw(20) << "Account Number";
         cout << "| " << left << setw(20) << "Client Name";
         cout << "| " << left << setw(15) << "Phone";
         cout << "| " << left << setw(20) << "Email";

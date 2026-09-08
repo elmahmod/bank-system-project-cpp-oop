@@ -156,6 +156,7 @@ public:
         }
         case UpdateMode:
         {
+            _update();
             return svSucceeded;
         }
         case AddMode:
@@ -222,4 +223,9 @@ public:
         }
         return false;
     }
-};
+
+    bool isEmpty()
+    {
+        return _mode == EmptyMode;
+    }
+};  

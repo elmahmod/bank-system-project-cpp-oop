@@ -42,7 +42,7 @@ public:
 
         while (!clsBankClient::isClientExist(accountNumber))
         {
-            accountNumber = clsInputValidate::readString("Client with Account Number [" + accountNumber + "] already exists, enter another one: ");
+            accountNumber = clsInputValidate::readString("Client with Account Number [" + accountNumber + "] does not exists, enter another one: ");
         }
 
         clsBankClient client = clsBankClient::find(accountNumber);
@@ -74,7 +74,7 @@ public:
         }
         else
         {
-            cout << "\nDeletion has been canceled\n";
+            cout << "\nUpdate has been canceled.\n";
         }
     }
 };

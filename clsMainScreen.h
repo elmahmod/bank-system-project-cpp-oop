@@ -5,6 +5,7 @@
 #include "screens/clsAddNewClientScreen.h"
 #include "screens/clsDeleteClientScreen.h"
 #include "screens/clsUpdateClientScreen.h"
+#include "screens/clsFindClientScreen.h"
 #include "libraries/clsInputValidate.h"
 
 class clsMainScreen : protected clsScreen
@@ -55,7 +56,8 @@ private:
 
     static void _showFindClientScreen()
     {
-        cout << "\n\tFind Client Screen will be here soon . . .\n";
+        // cout << "\n\tFind Client Screen will be here soon . . .\n";
+        clsFindClientScreen::showFindClient();
     }
 
     static void _showTransactionsMenu()
