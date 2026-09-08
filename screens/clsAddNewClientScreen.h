@@ -37,6 +37,8 @@ private:
 public:
     static void showAddNewClient()
     {
+        _drawScreenHeader("Add Client");
+        
         string accountNumber = clsInputValidate::readString("Please enter Account Number: ");
 
         while (clsBankClient::isClientExist(accountNumber))
