@@ -2,6 +2,9 @@
 #include <iostream>
 #include "screens/clsScreen.h"
 #include "screens/clsClientListScreen.h"
+#include "screens/clsAddNewClientScreen.h"
+#include "screens/clsDeleteClientScreen.h"
+#include "screens/clsUpdateClientScreen.h"
 #include "libraries/clsInputValidate.h"
 
 class clsMainScreen : protected clsScreen
@@ -34,17 +37,20 @@ private:
 
     static void _showAddNewClientScreen()
     {
-        cout << "\n\tAdd New Client Screen will be here soon . . .\n";
+        // cout << "\n\tAdd New Client Screen will be here soon . . .\n";
+        clsAddNewClientScreen::showAddNewClient();
     }
 
     static void _showDeleteClientScreen()
     {
-        cout << "\n\tDelete Client Screen will be here soon . . .\n";
+        // cout << "\n\tDelete Client Screen will be here soon . . .\n";
+        clsDeleteClientScreen::showDeleteClientScreen();
     }
 
     static void _showUpdateClientScreen()
     {
-        cout << "\n\tUpdate Client Screen will be here soon . . .\n";
+        // cout << "\n\tUpdate Client Screen will be here soon . . .\n";
+        clsUpdateClientScreen::showUpdateClient();
     }
 
     static void _showFindClientScreen()

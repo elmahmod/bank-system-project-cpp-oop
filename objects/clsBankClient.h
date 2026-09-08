@@ -14,17 +14,87 @@ private:
     enum enMode
     {
         EmptyMode = 0,
-        UpdateMode
+        UpdateMode,
+        AddMode
     };
     enMode _mode;
 
     string _accountNumber, _pinCode;
     double _balance;
+    bool _markedForDeletion = false;
 
     static clsBankClient _convertLineToClientObject(string line)
     {
         vector<string> vClientData = clsString::split(line, "#//#");
         return clsBankClient(UpdateMode, vClientData[0], vClientData[1], vClientData[2], vClientData[3], vClientData[4], vClientData[5], stod(vClientData[6]));
+    }
+
+    static string _convertClientObjectToLine(clsBankClient client, string separator = "#//#")
+    {
+        string line = "";
+        line = client.getFirstName() + separator;
+        line += client.getLastName() + separator;
+        line += client.getEmail() + separator;
+        line += client.getPhone() + separator;
+        line += client.getAccountNumber() + separator;
+        line += client.getPinCode() + separator;
+        line += to_string(client.getBalance());
+        return line;
+    }
+
+    void _addDataLineToFile(string dataLine)
+    {
+        ofstream file("clients.txt", ios::app);
+
+        if (file.is_open())
+        {
+            file << dataLine << endl;
+            file.close();
+        }
+    }
+
+    void _addNew()
+    {
+        _addDataLineToFile(_convertClientObjectToLine(*this));
+    }
+
+    static clsBankClient _getEmptyClientObj()
+    {
+        return clsBankClient(EmptyMode, "", "", "", "", "", "", 0);
+    }
+
+    static void _saveClientsDataToFile(vector<clsBankClient> vClients)
+    {
+        ofstream file("clients.txt");
+
+        if (file.is_open())
+        {
+            for (clsBankClient &client : vClients)
+            {
+                if (!client._markedForDeletion)
+                    file << _convertClientObjectToLine(client) << endl;
+            }
+            file.close();
+        }
+        else
+        {
+            cout << "\nFile not found.\n";
+        }
+    }
+
+    void _update()
+    {
+        vector<clsBankClient> vClients = loadClientsDataFromFile();
+
+        for (clsBankClient &client : vClients)
+        {
+            if (client._accountNumber == this->_accountNumber)
+            {
+                client = *this;
+                _saveClientsDataToFile(vClients);
+                return;
+            }
+        }
     }
 
 public:
@@ -56,17 +126,100 @@ public:
             string line = "";
             while (getline(file, line))
             {
-                vClients.push_back(_convertLineToClientObject(line));
+                if (line != "")
+                    vClients.push_back(_convertLineToClientObject(line));
             }
             file.close();
         }
         else
         {
-            cout << "\nFile not founded\n";
+            cout << "\nFile not found.\n";
         }
 
         return vClients;
     }
 
-    
+    enum enSaveResult
+    {
+        svFailed = 0,
+        svSucceeded,
+        svClientExist
+    };
+
+    enSaveResult save()
+    {
+        switch (_mode)
+        {
+        case EmptyMode:
+        {
+            return svFailed;
+        }
+        case UpdateMode:
+        {
+            return svSucceeded;
+        }
+        case AddMode:
+        {
+            if (isClientExist(_accountNumber))
+            {
+                return svClientExist;
+            }
+            _addNew();
+            _mode = UpdateMode;
+            return svSucceeded;
+        }
+        }
+        return svFailed;
+    }
+
+    static bool isClientExist(string accountNumber)
+    {
+        vector<clsBankClient> vClients = loadClientsDataFromFile();
+
+        for (clsBankClient &client : vClients)
+        {
+            if (client._accountNumber == accountNumber)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static clsBankClient getAddClientObj(string accountNumber)
+    {
+        return clsBankClient(AddMode, "", "", "", "", accountNumber, "", 0);
+    }
+
+    static clsBankClient find(string accountNumber)
+    {
+        vector<clsBankClient> vClients = loadClientsDataFromFile();
+
+        for (clsBankClient &client : vClients)
+        {
+            if (client._accountNumber == accountNumber)
+            {
+                return client;
+            }
+        }
+        return _getEmptyClientObj();
+    }
+
+    bool Delete()
+    {
+        vector<clsBankClient> vClients = loadClientsDataFromFile();
+
+        for (clsBankClient &client : vClients)
+        {
+            if (client._accountNumber == this->_accountNumber)
+            {
+                client._markedForDeletion = true;
+                _saveClientsDataToFile(vClients);
+
+                *this = _getEmptyClientObj();
+                return true;
+            }
+        }
+        return false;
+    }
 };
