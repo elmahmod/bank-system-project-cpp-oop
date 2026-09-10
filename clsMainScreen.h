@@ -7,6 +7,7 @@
 #include "screens/clsUpdateClientScreen.h"
 #include "screens/clsFindClientScreen.h"
 #include "screens/clsTransactionsScreen.h"
+#include "screens/clsManageUsersScreen.h"
 #include "libraries/clsInputValidate.h"
 
 class clsMainScreen : protected clsScreen
@@ -70,6 +71,7 @@ private:
     static void _showManageUsersMenu()
     {
         cout << "\n\tManage Users Menu will be here soon . . .\n";
+        clsManageUsersScreen::showManageUsersMenu();
     }
 
     static void _showEndScreen()
@@ -143,7 +145,7 @@ public:
             option = _readMainMenuOption("choose what do you want to do? ");
             _performMainMenuOption(option);
 
-            if (option != eExit && option != eShowTransactionsMenu)
+            if (option != eExit && option != eShowTransactionsMenu && option != eManageUsers)
             {
                 cout << endl;
                 system("pause");
