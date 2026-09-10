@@ -248,4 +248,16 @@ public:
         save();
         return true;
     }
+
+    static double getTotalBalance()
+    {
+        vector<clsBankClient> vClients = loadClientsDataFromFile();
+        double totalBalance = 0;
+
+        for (clsBankClient &client : vClients)
+        {
+            totalBalance += client._balance;
+        }
+        return totalBalance;
+    }
 };
