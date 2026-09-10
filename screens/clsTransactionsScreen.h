@@ -4,6 +4,7 @@
 #include "../objects/clsBankClient.h"
 #include "../libraries/clsInputValidate.h"
 #include "clsDepositScreen.h"
+#include "clsWithdrawScreen.h"
 
 using namespace std;
 
@@ -33,7 +34,8 @@ private:
 
     static void _showWithdrawScreen()
     {
-        cout << "\n\tWithdraw Menu will be here soon . . .\n";
+        // cout << "\n\tWithdraw Menu will be here soon . . .\n";
+        clsWithdrawScreen::showWithdraw();
     }
 
     static void _showTotalBalanceScreen()
@@ -89,7 +91,10 @@ public:
             _performTransactionsMenuOption(option);
 
             if (option != eBackToMainMenu)
+            {
+                cout << endl;
                 system("pause");
+            }
 
         } while (option != eBackToMainMenu);
     }

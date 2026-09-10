@@ -144,7 +144,10 @@ public:
             _performMainMenuOption(option);
 
             if (option != eExit && option != eShowTransactionsMenu)
+            {
+                cout << endl;
                 system("pause");
+            }
 
         } while (option != eExit);
     }

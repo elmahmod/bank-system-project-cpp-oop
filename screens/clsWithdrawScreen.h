@@ -5,7 +5,7 @@
 #include "../libraries/clsInputValidate.h"
 using namespace std;
 
-class clsDepositScreen : protected clsScreen
+class clsWithdrawScreen : protected clsScreen
 {
 private:
     static void _printClientData(clsBankClient client)
@@ -24,9 +24,9 @@ private:
     }
 
 public:
-    static void showDeposit()
+    static void showWithdraw()
     {
-        _drawScreenHeader("Deposit Screen");
+        _drawScreenHeader("Withdraw Screen");
 
         string accountNumber = clsInputValidate::readString("\nPlease enter Account Number: ");
 
@@ -38,26 +38,24 @@ public:
         clsBankClient client = clsBankClient::find(accountNumber);
         _printClientData(client);
 
-        double ammount = clsInputValidate::readDblNumber("\nPlease enter deposit ammount: ");
+        double ammount = clsInputValidate::readDblNumber("\nPlease enter withdraw ammount: ");
 
-        if (clsInputValidate::confirmAction("\nAre you sure you want to deposit this ammount? [y-n]: "))
+        if (clsInputValidate::confirmAction("\nAre you sure you want to withdraw this ammount? [y-n]: "))
         {
-            if (client.deposit(ammount))
+            if (client.withdraw(ammount))
             {
-                cout << "\nammount deposited successfully :)\n";
+                cout << "\nammount withdrawn successfully :)\n";
                 cout << "New Balance is: " << client.getBalance() << endl;
             }
             else
             {
-                cout << "\nInvalid deposit ammount.\n";
+                cout << "\nInvalid withdraw ammount.\n";
+                cout << "\nYour balance is: " << client.getBalance() << endl;
             }
         }
         else
         {
-            cout << "\nDeposit has been canceled.\n";
+            cout << "\nWithdraw has been canceled.\n";
         }
     }
-
-
-
 };

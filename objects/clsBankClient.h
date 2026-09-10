@@ -229,15 +229,23 @@ public:
         return _mode == EmptyMode;
     }
 
-    bool deposit(int ammount)
+    bool deposit(double ammount)
     {
         if (ammount <= 0)
             return false;
-        
+
         this->_balance += ammount;
         save();
         return true;
     }
 
+    bool withdraw(double ammount)
+    {
+        if (ammount > this->_balance || ammount <= 0)
+            return false;
 
-};  
+        _balance -= ammount;
+        save();
+        return true;
+    }
+};
