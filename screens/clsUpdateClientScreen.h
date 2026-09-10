@@ -37,7 +37,7 @@ private:
 public:
     static void showUpdateClient()
     {
-        _drawScreenHeader("Update Client");
+        _drawScreenHeader("Update Client Screen");
         string accountNumber = clsInputValidate::readString("Please enter Account Number: ");
 
         while (!clsBankClient::isClientExist(accountNumber))

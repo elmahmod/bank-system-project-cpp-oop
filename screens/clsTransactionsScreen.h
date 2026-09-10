@@ -3,6 +3,8 @@
 #include "clsScreen.h"
 #include "../objects/clsBankClient.h"
 #include "../libraries/clsInputValidate.h"
+#include "screens/clsDepositScreen.h"
+
 using namespace std;
 
 class clsTransactionsScreen : protected clsScreen
@@ -25,7 +27,8 @@ private:
 
     static void _showDepositScreen()
     {
-        cout << "\n\tDeposit Menu will be here soon . . .\n";
+        // cout << "\n\tDeposit Menu will be here soon . . .\n";
+        clsDepositScreen::showDeposit();
     }
 
     static void _showWithdrawScreen()
@@ -41,7 +44,7 @@ private:
     static void _performTransactionsMenuOption(enTransactionsMenuOption option)
     {
         system("cls");
-        
+
         switch (option)
         {
         case eDeposit:

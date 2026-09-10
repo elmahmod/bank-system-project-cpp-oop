@@ -5,7 +5,7 @@
 #include "../libraries/clsInputValidate.h"
 using namespace std;
 
-class clsFindClientScreen : protected clsScreen
+class clsDepositScreen : protected clsScreen
 {
 private:
     static void _printClientData(clsBankClient client)
@@ -24,9 +24,9 @@ private:
     }
 
 public:
-    static void showFindClient()
+    static void showDeposit()
     {
-        _drawScreenHeader("Find Client Screen");
+        _drawScreenHeader("Deposit Screen");
 
         string accountNumber = clsInputValidate::readString("Please enter Account Number: ");
 
@@ -36,13 +36,25 @@ public:
         }
 
         clsBankClient client = clsBankClient::find(accountNumber);
-
-        if (client.isEmpty())
-        {
-            cout << "\nClient not found.\n";
-            return;
-        }
-
         _printClientData(client);
+
+        double ammount = clsInputValidate::readDblNumber("Please enter deposit ammount: ");
+
+        if (clsInputValidate::confirmAction("Are you sure you want to deposit this amount? [y-n]: "))
+        {
+            if (client.deposit(ammount))
+            {
+                cout << "\nAmount deposited successfully :)\n";
+                cout << "New Balance is: " << client.getBalance() << endl;
+            }
+            else
+            {
+                cout << "\nInvalid deposit amount.\n";
+            }
+        }
+        else
+        {
+            cout << "\nDeposit has been canceled.\n";
+        }
     }
 };

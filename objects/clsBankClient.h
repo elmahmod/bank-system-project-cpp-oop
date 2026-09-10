@@ -228,4 +228,16 @@ public:
     {
         return _mode == EmptyMode;
     }
+
+    bool deposit(int ammount)
+    {
+        if (ammount <= 0)
+            return false;
+        
+        this->_balance += ammount;
+        save();
+        return true;
+    }
+
+
 };  

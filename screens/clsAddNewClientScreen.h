@@ -37,7 +37,7 @@ private:
 public:
     static void showAddNewClient()
     {
-        _drawScreenHeader("Add Client");
+        _drawScreenHeader("Add Client Screen");
         
         string accountNumber = clsInputValidate::readString("Please enter Account Number: ");
 
