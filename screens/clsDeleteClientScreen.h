@@ -27,17 +27,17 @@ public:
     static void showDeleteClientScreen()
     {
         _drawScreenHeader("Delete Screen");
-        string accountNumber = clsInputValidate::readString("Please enter Account Number: ");
+        string accountNumber = clsInputValidate::readString("\nPlease enter Account Number: ");
 
         while (!clsBankClient::isClientExist(accountNumber))
         {
-            accountNumber = clsInputValidate::readString("Client with Account Number [" + accountNumber + "] does not exists, enter another one: ");
+            accountNumber = clsInputValidate::readString("\nClient with Account Number [" + accountNumber + "] does not exists, enter another one: ");
         }
 
         clsBankClient client = clsBankClient::find(accountNumber);
         _printClientData(client);
 
-        if (clsInputValidate::confirmAction("Do you want to delete this client? [y-n]: "))
+        if (clsInputValidate::confirmAction("\nDo you want to delete this client? [y-n]: "))
         {
             if (client.Delete())
             {

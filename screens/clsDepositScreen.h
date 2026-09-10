@@ -28,19 +28,19 @@ public:
     {
         _drawScreenHeader("Deposit Screen");
 
-        string accountNumber = clsInputValidate::readString("Please enter Account Number: ");
+        string accountNumber = clsInputValidate::readString("\nPlease enter Account Number: ");
 
         while (!clsBankClient::isClientExist(accountNumber))
         {
-            accountNumber = clsInputValidate::readString("Client with Account Number [" + accountNumber + "] does not exists, enter another one: ");
+            accountNumber = clsInputValidate::readString("\nClient with Account Number [" + accountNumber + "] does not exists, enter another one: ");
         }
 
         clsBankClient client = clsBankClient::find(accountNumber);
         _printClientData(client);
 
-        double ammount = clsInputValidate::readDblNumber("Please enter deposit ammount: ");
+        double ammount = clsInputValidate::readDblNumber("\nPlease enter deposit ammount: ");
 
-        if (clsInputValidate::confirmAction("Are you sure you want to deposit this amount? [y-n]: "))
+        if (clsInputValidate::confirmAction("\nAre you sure you want to deposit this amount? [y-n]: "))
         {
             if (client.deposit(ammount))
             {

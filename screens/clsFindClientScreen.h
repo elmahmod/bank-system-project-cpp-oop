@@ -28,11 +28,11 @@ public:
     {
         _drawScreenHeader("Find Client Screen");
 
-        string accountNumber = clsInputValidate::readString("Please enter Account Number: ");
+        string accountNumber = clsInputValidate::readString("\nPlease enter Account Number: ");
 
         while (!clsBankClient::isClientExist(accountNumber))
         {
-            accountNumber = clsInputValidate::readString("Client with Account Number [" + accountNumber + "] does not exists, enter another one: ");
+            accountNumber = clsInputValidate::readString("\nClient with Account Number [" + accountNumber + "] does not exists, enter another one: ");
         }
 
         clsBankClient client = clsBankClient::find(accountNumber);

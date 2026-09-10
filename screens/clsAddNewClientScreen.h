@@ -39,7 +39,7 @@ public:
     {
         _drawScreenHeader("Add Client Screen");
         
-        string accountNumber = clsInputValidate::readString("Please enter Account Number: ");
+        string accountNumber = clsInputValidate::readString("\nPlease enter Account Number: ");
 
         while (clsBankClient::isClientExist(accountNumber))
         {

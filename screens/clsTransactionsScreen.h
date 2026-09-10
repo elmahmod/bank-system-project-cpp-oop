@@ -3,7 +3,7 @@
 #include "clsScreen.h"
 #include "../objects/clsBankClient.h"
 #include "../libraries/clsInputValidate.h"
-#include "screens/clsDepositScreen.h"
+#include "clsDepositScreen.h"
 
 using namespace std;
 
