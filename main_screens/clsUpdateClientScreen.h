@@ -1,11 +1,11 @@
 #pragma once
 #include <iostream>
-#include "clsScreen.h"
+#include "../inheritance_screen/clsScreen.h"
 #include "../objects/clsBankClient.h"
 #include "../libraries/clsInputValidate.h"
 using namespace std;
 
-class clsAddNewClientScreen : protected clsScreen
+class clsUpdateClientScreen : protected clsScreen
 {
 private:
     static void _printClientData(clsBankClient client)
@@ -35,38 +35,46 @@ private:
     }
 
 public:
-    static void showAddNewClient()
+    static void showUpdateClient()
     {
-        _drawScreenHeader("Add Client Screen");
-        
+        _drawScreenHeader("Update Client Screen");
         string accountNumber = clsInputValidate::readString("\nPlease enter Account Number: ");
 
-        while (clsBankClient::isClientExist(accountNumber))
+        while (!clsBankClient::isClientExist(accountNumber))
         {
-            accountNumber = clsInputValidate::readString("\nClient with Account Number [" + accountNumber + "] already exists, enter another one: ");
+            accountNumber = clsInputValidate::readString("\nClient with Account Number [" + accountNumber + "] does not exists, enter another one: ");
         }
 
-        clsBankClient newClient = clsBankClient::getAddClientObj(accountNumber);
-        _readNewClient(newClient);
+        clsBankClient client = clsBankClient::find(accountNumber);
+        _printClientData(client);
 
-        switch (newClient.save())
+        if (clsInputValidate::confirmAction("\nDo yo want to update this client? [y-n]: "))
         {
-        case clsBankClient::svFailed:
-        {
-            cout << "\nError, client was not saved, please try again.\n";
-            break;
+            _readNewClient(client);
+
+            switch (client.save())
+            {
+            case clsBankClient::svFailed:
+            {
+                cout << "\nError, client was not saved, please try again.\n";
+                break;
+            }
+            case clsBankClient::svSucceeded:
+            {
+                cout << "\nClient Updated successfully :)\n";
+                _printClientData(client);
+                break;
+            }
+            case clsBankClient::svClientExist:
+            {
+                cout << "\nError, a client with Account Number [" << accountNumber << "] already exists.\n";
+                break;
+            }
+            }
         }
-        case clsBankClient::svSucceeded:
+        else
         {
-            cout << "\nClient added successfully :)\n";
-            _printClientData(newClient);
-            break;
-        }
-        case clsBankClient::svClientExist:
-        {
-            cout << "\nError, a client with Account Number [" << accountNumber << "] already exists.\n";
-            break;
-        }
+            cout << "\nUpdate has been canceled.\n";
         }
     }
 };

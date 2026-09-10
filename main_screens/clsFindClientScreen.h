@@ -1,11 +1,11 @@
 #pragma once
 #include <iostream>
-#include "clsScreen.h"
+#include "../inheritance_screen/clsScreen.h"
 #include "../objects/clsBankClient.h"
 #include "../libraries/clsInputValidate.h"
 using namespace std;
 
-class clsDeleteClientScreen : protected clsScreen
+class clsFindClientScreen : protected clsScreen
 {
 private:
     static void _printClientData(clsBankClient client)
@@ -24,9 +24,10 @@ private:
     }
 
 public:
-    static void showDeleteClientScreen()
+    static void showFindClient()
     {
-        _drawScreenHeader("Delete Screen");
+        _drawScreenHeader("Find Client Screen");
+
         string accountNumber = clsInputValidate::readString("\nPlease enter Account Number: ");
 
         while (!clsBankClient::isClientExist(accountNumber))
@@ -35,21 +36,13 @@ public:
         }
 
         clsBankClient client = clsBankClient::find(accountNumber);
-        _printClientData(client);
 
-        if (clsInputValidate::confirmAction("\nDo you want to delete this client? [y-n]: "))
+        if (client.isEmpty())
         {
-            if (client.Delete())
-            {
-                cout << "\nClient deleted successfully.\n";
-                _printClientData(client);
-            }
-            else
-                cout << "\nError: Client was not deleted.\n";
+            cout << "\nClient not found.\n";
+            return;
         }
-        else
-        {
-            cout << "\nDeletion has been canceled\n";
-        }
+
+        _printClientData(client);
     }
 };

@@ -1,14 +1,14 @@
 #pragma once
 #include <iostream>
-#include "screens/clsScreen.h"
-#include "screens/clsClientListScreen.h"
-#include "screens/clsAddNewClientScreen.h"
-#include "screens/clsDeleteClientScreen.h"
-#include "screens/clsUpdateClientScreen.h"
-#include "screens/clsFindClientScreen.h"
-#include "screens/clsTransactionsScreen.h"
-#include "screens/clsManageUsersScreen.h"
-#include "libraries/clsInputValidate.h"
+#include "../inheritance_screen/../inheritance_screen/clsScreen.h"
+#include "clsClientListScreen.h"
+#include "clsAddNewClientScreen.h"
+#include "clsDeleteClientScreen.h"
+#include "clsUpdateClientScreen.h"
+#include "clsFindClientScreen.h"
+#include "../transaction_screens/clsTransactionsScreen.h"
+#include "../manage_users_screens/clsManageUsersScreen.h"
+#include "../libraries/clsInputValidate.h"
 
 class clsMainScreen : protected clsScreen
 {

@@ -1,11 +1,11 @@
 #pragma once
 #include <iostream>
-#include "clsScreen.h"
+#include "../inheritance_screen/clsScreen.h"
 #include "../objects/clsBankClient.h"
 #include "../libraries/clsInputValidate.h"
 using namespace std;
 
-class clsFindClientScreen : protected clsScreen
+class clsDepositScreen : protected clsScreen
 {
 private:
     static void _printClientData(clsBankClient client)
@@ -24,9 +24,9 @@ private:
     }
 
 public:
-    static void showFindClient()
+    static void showDeposit()
     {
-        _drawScreenHeader("Find Client Screen");
+        _drawScreenHeader("Deposit Screen");
 
         string accountNumber = clsInputValidate::readString("\nPlease enter Account Number: ");
 
@@ -36,13 +36,28 @@ public:
         }
 
         clsBankClient client = clsBankClient::find(accountNumber);
-
-        if (client.isEmpty())
-        {
-            cout << "\nClient not found.\n";
-            return;
-        }
-
         _printClientData(client);
+
+        double ammount = clsInputValidate::readDblNumber("\nPlease enter deposit ammount: ");
+
+        if (clsInputValidate::confirmAction("\nAre you sure you want to deposit this ammount? [y-n]: "))
+        {
+            if (client.deposit(ammount))
+            {
+                cout << "\nammount deposited successfully :)\n";
+                cout << "New Balance is: " << client.getBalance() << endl;
+            }
+            else
+            {
+                cout << "\nInvalid deposit ammount.\n";
+            }
+        }
+        else
+        {
+            cout << "\nDeposit has been canceled.\n";
+        }
     }
+
+
+
 };

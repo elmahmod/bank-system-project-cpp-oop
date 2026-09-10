@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "clsScreen.h"
+#include "../inheritance_screen/clsScreen.h"
 #include "../libraries/clsInputValidate.h"
 using namespace std;
 

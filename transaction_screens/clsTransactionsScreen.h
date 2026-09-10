@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "clsScreen.h"
+#include "../inheritance_screen/clsScreen.h"
 #include "../objects/clsBankClient.h"
 #include "../libraries/clsInputValidate.h"
 #include "clsDepositScreen.h"

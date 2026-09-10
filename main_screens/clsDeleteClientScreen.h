@@ -1,11 +1,11 @@
 #pragma once
 #include <iostream>
-#include "clsScreen.h"
+#include "../inheritance_screen/clsScreen.h"
 #include "../objects/clsBankClient.h"
 #include "../libraries/clsInputValidate.h"
 using namespace std;
 
-class clsDepositScreen : protected clsScreen
+class clsDeleteClientScreen : protected clsScreen
 {
 private:
     static void _printClientData(clsBankClient client)
@@ -24,10 +24,9 @@ private:
     }
 
 public:
-    static void showDeposit()
+    static void showDeleteClientScreen()
     {
-        _drawScreenHeader("Deposit Screen");
-
+        _drawScreenHeader("Delete Screen");
         string accountNumber = clsInputValidate::readString("\nPlease enter Account Number: ");
 
         while (!clsBankClient::isClientExist(accountNumber))
@@ -38,26 +37,19 @@ public:
         clsBankClient client = clsBankClient::find(accountNumber);
         _printClientData(client);
 
-        double ammount = clsInputValidate::readDblNumber("\nPlease enter deposit ammount: ");
-
-        if (clsInputValidate::confirmAction("\nAre you sure you want to deposit this ammount? [y-n]: "))
+        if (clsInputValidate::confirmAction("\nDo you want to delete this client? [y-n]: "))
         {
-            if (client.deposit(ammount))
+            if (client.Delete())
             {
-                cout << "\nammount deposited successfully :)\n";
-                cout << "New Balance is: " << client.getBalance() << endl;
+                cout << "\nClient deleted successfully.\n";
+                _printClientData(client);
             }
             else
-            {
-                cout << "\nInvalid deposit ammount.\n";
-            }
+                cout << "\nError: Client was not deleted.\n";
         }
         else
         {
-            cout << "\nDeposit has been canceled.\n";
+            cout << "\nDeletion has been canceled\n";
         }
     }
-
-
-
 };

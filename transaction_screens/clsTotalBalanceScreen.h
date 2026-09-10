@@ -1,38 +1,33 @@
 #pragma once
 #include <iostream>
-#include "clsScreen.h"
+#include "../inheritance_screen/clsScreen.h"
 #include "../objects/clsBankClient.h"
+#include "../libraries/clsInputValidate.h"
 using namespace std;
 
-class clsClientListScreen : protected clsScreen
+class clsTotalBalanceScreen : protected clsScreen
 {
 private:
     static void _printClientRecordLine(clsBankClient client)
     {
         cout << setw(8) << "" << "| "
              << left << setw(20) << client.getAccountNumber();
-        cout << "| " << left << setw(20) << client.fullName();
-        cout << "| " << left << setw(15) << client.getPhone();
-        cout << "| " << left << setw(20) << client.getEmail();
-        cout << "| " << left << setw(12) << client.getPinCode();
+        cout << "| " << left << setw(25) << client.fullName();
         cout << "| " << left << setw(12) << client.getBalance();
     }
 
 public:
-    static void showClientList()
+    static void showTotalBalance()
     {
         vector<clsBankClient> vClients = clsBankClient::loadClientsDataFromFile();
 
-        _drawScreenHeader("Client List Screen", "(" + to_string(vClients.size()) + ") Clients.");
+        _drawScreenHeader("Total Balance Screen", "(" + to_string(vClients.size()) + ") Clients.");
 
         cout << setw(8) << "" << string(110, '_') << endl
              << endl;
 
         cout << setw(8) << "" << "| " << left << setw(20) << "Account Number";
-        cout << "| " << left << setw(20) << "Client Name";
-        cout << "| " << left << setw(15) << "Phone";
-        cout << "| " << left << setw(20) << "Email";
-        cout << "| " << left << setw(12) << "Pin Code";
+        cout << "| " << left << setw(25) << "Client Name";
         cout << "| " << left << setw(12) << "Balance" << endl;
 
         cout << setw(8) << "" << string(110, '_') << endl
@@ -49,8 +44,8 @@ public:
             }
         }
 
+        cout << right << setw(115) << "Total Balance: " << clsBankClient::getTotalBalance() << endl;
         cout << setw(8) << "" << string(110, '_') << endl
              << endl;
     }
-
 };
