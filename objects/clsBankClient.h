@@ -44,7 +44,7 @@ private:
 
     void _addDataLineToFile(string dataLine)
     {
-        ofstream file("clients.txt", ios::app);
+        ofstream file("files/clients.txt", ios::app);
 
         if (file.is_open())
         {
@@ -65,7 +65,7 @@ private:
 
     static void _saveClientsDataToFile(vector<clsBankClient> vClients)
     {
-        ofstream file("clients.txt");
+        ofstream file("files/clients.txt");
 
         if (file.is_open())
         {
@@ -119,7 +119,7 @@ public:
     static vector<clsBankClient> loadClientsDataFromFile()
     {
         vector<clsBankClient> vClients;
-        ifstream file("clients.txt");
+        ifstream file("files/clients.txt");
 
         if (file.is_open())
         {
