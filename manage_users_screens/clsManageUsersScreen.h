@@ -3,6 +3,7 @@
 #include "../inheritance_screen/clsScreen.h"
 #include "../libraries/clsInputValidate.h"
 #include "clsUsersListScreen.h"
+#include "clsAddNewUserScreen.h"
 using namespace std;
 
 class clsManageUsersScreen : protected clsScreen
@@ -33,6 +34,7 @@ private:
     static void _showAddNewUserScreen()
     {
         cout << "\n\tAdd New User Screen will be here soon . . .\n";
+        clsAddNewUserScreen::showAddNewUser();
     }
 
     static void _showDeleteUserScreen()

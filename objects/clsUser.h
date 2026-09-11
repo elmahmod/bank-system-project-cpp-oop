@@ -128,7 +128,7 @@ public:
     }
 
     // set
-    void setUsername(string username) { _username = username; }
+    // void setUsername(string username) { _username = username; }
     void setPassword(string password) { _password = password; }
     void setPermissions(int permissions) { _permissions = permissions; }
 
@@ -136,6 +136,18 @@ public:
     string getUsername() { return _username; }
     string getPassword() { return _password; }
     int getPermissions() { return _permissions; }
+
+    enum enPermissions
+    {
+        pListClient = 1,
+        pAddNewClient = 2,
+        pDeleteClient = 4,
+        pUpdateClient = 8,
+        pFindClient = 16,
+        pTransactions = 32,
+        pManageUsers = 64,
+        pALL = -1
+    };
 
     static bool isUserExist(string username)
     {
@@ -236,7 +248,7 @@ public:
             {
                 return svUserExist;
             }
-            
+
             _addNew();
             _mode = UpdateMode;
             return svSucceeded;
