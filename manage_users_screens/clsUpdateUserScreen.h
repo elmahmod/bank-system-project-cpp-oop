@@ -79,14 +79,14 @@ public:
     static void showUpdateUser()
     {
         _drawScreenHeader("Update User Screen");
-        string accountNumber = clsInputValidate::readString("\nPlease enter username: ");
+        string username = clsInputValidate::readString("\nPlease enter username: ");
 
-        while (!clsUser::isUserExist(accountNumber))
+        while (!clsUser::isUserExist(username))
         {
-            accountNumber = clsInputValidate::readString("\nUser with username [" + accountNumber + "] does not exist, enter another one: ");
+            username = clsInputValidate::readString("\nUser with username [" + username + "] does not exist, enter another one: ");
         }
 
-        clsUser user = clsUser::find(accountNumber);
+        clsUser user = clsUser::find(username);
         _printUserData(user);
 
         if (clsInputValidate::confirmAction("\nDo yo want to update this user? [y-n]: "))
@@ -108,7 +108,7 @@ public:
             }
             case clsUser::svUserExist:
             {
-                cout << "\nError, a user with username [" << accountNumber << "] already exists.\n";
+                cout << "\nError, a user with username [" << username << "] already exists.\n";
                 break;
             }
             }
