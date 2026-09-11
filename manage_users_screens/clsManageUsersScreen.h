@@ -2,6 +2,7 @@
 #include <iostream>
 #include "../inheritance_screen/clsScreen.h"
 #include "../libraries/clsInputValidate.h"
+#include "clsUsersListScreen.h"
 using namespace std;
 
 class clsManageUsersScreen : protected clsScreen
@@ -25,7 +26,8 @@ class clsManageUsersScreen : protected clsScreen
 private:
     static void _showAllUsersScreen()
     {
-        cout << "\n\tList Users Screen will be here soon . . .\n";
+        // cout << "\n\tList Users Screen will be here soon . . .\n";
+        clsUsersListScreen::showUsersList();
     }
 
     static void _showAddNewUserScreen()

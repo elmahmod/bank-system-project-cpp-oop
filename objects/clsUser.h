@@ -8,7 +8,7 @@
 #include "../libraries/clsInputValidate.h"
 using namespace std;
 
-class clsUser : protected clsPerson
+class clsUser : public clsPerson
 {
 private:
     enum enMode
@@ -137,40 +137,6 @@ public:
     string getPassword() { return _password; }
     int getPermissions() { return _permissions; }
 
-    enum enSaveResult
-    {
-        svFailed = 0,
-        svSucceeded,
-        svUserExist
-    };
-
-    enSaveResult save()
-    {
-        switch (_mode)
-        {
-        case EmptyMode:
-        {
-            return svFailed;
-        }
-        case UpdateMode:
-        {
-            _update();
-            return svSucceeded;
-        }
-        case AddNewMode:
-        {
-            if (isUserExist(_username))
-            {
-                return svUserExist;
-            }
-            _addNew();
-            _mode = UpdateMode;
-            return svSucceeded;
-        }
-        }
-        return svFailed;
-    }
-
     static bool isUserExist(string username)
     {
         vector<clsUser> vUsers = _loadUsersDataFromFile();
@@ -185,7 +151,7 @@ public:
         return false;
     }
 
-    static clsUser getAddUserObj(string username)
+    static clsUser getAddUserObject(string username)
     {
         return clsUser(AddNewMode, "", "", "", "", username, "", 0);
     }
@@ -244,5 +210,38 @@ public:
     static vector<clsUser> getUsersList()
     {
         return _loadUsersDataFromFile();
+    }
+
+    enum enSaveResult
+    {
+        svFailed = 0,
+        svSucceeded,
+        svUserExist
+    };
+
+    enSaveResult save()
+    {
+        switch (_mode)
+        {
+        case EmptyMode:
+            return svFailed;
+        case UpdateMode:
+        {
+            _update();
+            return svSucceeded;
+        }
+        case AddNewMode:
+        {
+            if (isUserExist(_username))
+            {
+                return svUserExist;
+            }
+            
+            _addNew();
+            _mode = UpdateMode;
+            return svSucceeded;
+        }
+        }
+        return svFailed;
     }
 };
