@@ -31,7 +31,7 @@ public:
 
         while (!clsBankClient::isClientExist(accountNumber))
         {
-            accountNumber = clsInputValidate::readString("\nClient with Account Number [" + accountNumber + "] does not exists, enter another one: ");
+            accountNumber = clsInputValidate::readString("\nClient with Account Number [" + accountNumber + "] does not exist, enter another one: ");
         }
 
         clsBankClient client = clsBankClient::find(accountNumber);
