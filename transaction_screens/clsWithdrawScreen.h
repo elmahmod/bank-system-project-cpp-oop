@@ -38,18 +38,18 @@ public:
         clsBankClient client = clsBankClient::find(accountNumber);
         _printClientData(client);
 
-        double ammount = clsInputValidate::readDblNumber("\nPlease enter withdraw ammount: ");
+        double amount = clsInputValidate::readDblNumber("\nPlease enter withdraw amount: ");
 
-        if (clsInputValidate::confirmAction("\nAre you sure you want to withdraw this ammount? [y-n]: "))
+        if (clsInputValidate::confirmAction("\nAre you sure you want to withdraw this amount? [y-n]: "))
         {
-            if (client.withdraw(ammount))
+            if (client.withdraw(amount))
             {
-                cout << "\nammount withdrawn successfully :)\n";
+                cout << "\namount withdrawn successfully :)\n";
                 cout << "New Balance is: " << client.getBalance() << endl;
             }
             else
             {
-                cout << "\nInvalid withdraw ammount.\n";
+                cout << "\nInvalid withdraw amount.\n";
                 cout << "\nYour balance is: " << client.getBalance() << endl;
             }
         }

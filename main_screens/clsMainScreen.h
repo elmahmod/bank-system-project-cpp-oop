@@ -159,7 +159,7 @@ public:
             option = _readMainMenuOption("choose what do you want to do? ");
             _performMainMenuOption(option);
 
-            if (option != eExit && option != eShowTransactionsMenu && option != eManageUsers)
+            if (option != eExit)
             {
                 cout << endl;
                 system("pause");

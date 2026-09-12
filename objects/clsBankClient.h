@@ -229,22 +229,22 @@ public:
         return _mode == EmptyMode;
     }
 
-    bool deposit(double ammount)
+    bool deposit(double amount)
     {
-        if (ammount <= 0)
+        if (amount <= 0)
             return false;
 
-        this->_balance += ammount;
+        this->_balance += amount;
         save();
         return true;
     }
 
-    bool withdraw(double ammount)
+    bool withdraw(double amount)
     {
-        if (ammount > this->_balance || ammount <= 0)
+        if (amount > this->_balance || amount <= 0)
             return false;
 
-        _balance -= ammount;
+        _balance -= amount;
         save();
         return true;
     }
@@ -259,5 +259,22 @@ public:
             totalBalance += client._balance;
         }
         return totalBalance;
+    }
+
+    bool transfer(clsBankClient &toClient, double transferAmmount)
+    {
+        if (_accountNumber == toClient._accountNumber)
+            return false;
+
+        if (transferAmmount <= 0 || transferAmmount > _balance)
+            return false;
+
+        _balance -= transferAmmount;
+        toClient._balance += transferAmmount;
+
+        save();
+        toClient.save();
+
+        return true;
     }
 };
