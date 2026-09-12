@@ -6,6 +6,7 @@
 #include "clsDeleteClientScreen.h"
 #include "clsUpdateClientScreen.h"
 #include "clsFindClientScreen.h"
+#include "clsLoginRegisterScreen.h"
 #include "../transaction_screens/clsTransactionsScreen.h"
 #include "../manage_users_screens/clsManageUsersScreen.h"
 #include "../libraries/clsInputValidate.h"
@@ -23,13 +24,14 @@ private:
         eFindClient,
         eShowTransactionsMenu,
         eManageUsers,
+        eLoginRegister,
         eExit
     };
 
     static enMainMenuOptions _readMainMenuOption(const string &message)
     {
         int option = 0;
-        option = clsInputValidate::readIntNumberBetween(1, 8, message);
+        option = clsInputValidate::readIntNumberBetween(1, 9, message);
         return static_cast<enMainMenuOptions>(option);
     }
 
@@ -71,8 +73,13 @@ private:
 
     static void _showManageUsersMenu()
     {
-        cout << "\n\tManage Users Menu will be here soon . . .\n";
+        // cout << "\n\tManage Users Menu will be here soon . . .\n";
         clsManageUsersScreen::showManageUsersMenu();
+    }
+
+    static void _showLoginRegisterScreen()
+    {
+        clsLoginRegisterScreen::showLoginRegister();
     }
 
     static void _logout()
@@ -114,6 +121,10 @@ private:
             _showManageUsersMenu();
             break;
 
+        case eLoginRegister:
+            _showLoginRegisterScreen();
+            break;
+
         case eExit:
             _logout();
             break;
@@ -140,7 +151,8 @@ public:
             cout << setw(37) << left << "" << "\t[5] Find Client." << endl;
             cout << setw(37) << left << "" << "\t[6] Transactions." << endl;
             cout << setw(37) << left << "" << "\t[7] Manage Users." << endl;
-            cout << setw(37) << left << "" << "\t[8] Logout." << endl;
+            cout << setw(37) << left << "" << "\t[8] Login Register." << endl;
+            cout << setw(37) << left << "" << "\t[9] Logout." << endl;
             cout << setw(37) << left << "" << string(60, '=') << endl;
             cout << setw(37) << left << "";
 
