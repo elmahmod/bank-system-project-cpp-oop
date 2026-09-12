@@ -6,6 +6,7 @@
 #include "clsPerson.h"
 #include "../libraries/clsString.h"
 #include "../libraries/clsInputValidate.h"
+#include "../libraries/clsDate.h"
 using namespace std;
 
 class clsUser : public clsPerson
@@ -115,6 +116,16 @@ private:
                 return;
             }
         }
+    }
+
+    string _getLoginRecordLine(string separator = "#//#")
+    {
+        string line = "";
+        line += clsDate::getSystemDateTimeString() + separator;
+        line += _username + separator;
+        line += _password + separator;
+        line += to_string(_permissions);
+        return line;
     }
 
 public:
@@ -262,6 +273,16 @@ public:
         if (permssions == enPermissions::pALL)
             return true;
 
-        return  (permssions & _permissions) == permssions;
+        return (permssions & _permissions) == permssions;
+    }
+
+    void registerLogin()
+    {
+        ofstream file("files/logins.txt", ios::app);
+
+        if (file.is_open())
+        {
+            file << _getLoginRecordLine() << endl;
+        }
     }
 };

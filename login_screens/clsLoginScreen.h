@@ -38,6 +38,7 @@ private:
 
         } while (loginFailed);
 
+        currentUser.registerLogin();
         clsMainScreen::showMainMenu();
 
         return true;
