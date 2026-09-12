@@ -16,9 +16,10 @@ protected:
 
         if (subTitle != "")
         {
+            cout << setw(60) << left << "" << subTitle << endl;
         }
-        cout << setw(60) << left << "" << subTitle << endl << endl;
-        
+
+        cout << '\n';
         cout << setw(54) << "" << "User: " << currentUser.getUsername() << endl;
         cout << setw(54) << "" << "Date: " << clsDate::dateToString(clsDate()) << endl;
 
