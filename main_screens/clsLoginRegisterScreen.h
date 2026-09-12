@@ -20,6 +20,9 @@ private:
 public:
     static void showLoginRegister()
     {
+        if (!clsScreen::checkPermssions(clsUser::enPermissions::pLoginRegister))
+            return;
+
         vector<clsUser::stLoginRegisterRecord> vLoginRegisterRecords = clsUser::getLoginRegisterList();
 
         _drawScreenHeader("Login Register List Screen", "(" + to_string(vLoginRegisterRecords.size()) + ") Records.");

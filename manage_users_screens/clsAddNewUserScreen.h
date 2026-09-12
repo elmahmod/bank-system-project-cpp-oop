@@ -61,6 +61,9 @@ private:
         if (clsInputValidate::confirmAction("Access to Manage Users? (y/n): "))
             permission |= clsUser::enPermissions::pManageUsers;
 
+        if (clsInputValidate::confirmAction("Access to Login Register List? (y/n): "))
+            permission |= clsUser::enPermissions::pLoginRegister;
+
         return permission;
 
         // 0 0 0 0 -> 1:,,  1:,,  1:w  1:r (with acess)

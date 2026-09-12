@@ -180,6 +180,7 @@ public:
         pFindClient = 16,
         pTransactions = 32,
         pManageUsers = 64,
+        pLoginRegister = 128,
         pALL = -1
     };
 
