@@ -21,6 +21,10 @@ private:
 public:
     static void showClientList()
     {
+
+        if (!clsScreen::checkPermssions(clsUser::enPermissions::pListClient))
+            return;
+
         vector<clsBankClient> vClients = clsBankClient::loadClientsDataFromFile();
 
         _drawScreenHeader("Client List Screen", "(" + to_string(vClients.size()) + ") Clients.");

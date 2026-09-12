@@ -37,6 +37,9 @@ private:
 public:
     static void showUpdateClient()
     {
+        if (!clsScreen::checkPermssions(clsUser::enPermissions::pUpdateClient))
+            return;
+
         _drawScreenHeader("Update Client Screen");
         string accountNumber = clsInputValidate::readString("\nPlease enter Account Number: ");
 

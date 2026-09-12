@@ -37,8 +37,11 @@ private:
 public:
     static void showAddNewClient()
     {
+        if (!clsScreen::checkPermssions(clsUser::enPermissions::pAddNewClient))
+            return;
+
         _drawScreenHeader("Add Client Screen");
-        
+
         string accountNumber = clsInputValidate::readString("\nPlease enter Account Number: ");
 
         while (clsBankClient::isClientExist(accountNumber))

@@ -71,6 +71,8 @@ private:
 public:
     static void showTransactionsMenu()
     {
+        if (!clsScreen::checkPermssions(clsUser::enPermissions::pTransactions))
+            return;
 
         enTransactionsMenuOption option;
         do

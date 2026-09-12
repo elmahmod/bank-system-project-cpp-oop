@@ -92,6 +92,9 @@ private:
 public:
     static void showManageUsersMenu()
     {
+        if (!clsScreen::checkPermssions(clsUser::enPermissions::pManageUsers))
+            return;
+
         enManageUsersMenuOption option;
         do
         {

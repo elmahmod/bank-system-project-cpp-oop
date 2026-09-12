@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <iomanip>
+#include "../login_screens/global.h"
 using namespace std;
 
 class clsScreen
@@ -17,5 +18,13 @@ protected:
         cout << setw(54) << left << "" << string(25, '_') << endl << endl;
     }
 
-    
+    static bool checkPermssions(clsUser::enPermissions permissions)
+    {
+        if (!currentUser.hasPermissions(permissions))
+        {
+            cout << "\n\nAccess Denied!\n\n";
+            return false;
+        }
+        return true;
+    }
 };

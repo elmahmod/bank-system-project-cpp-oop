@@ -256,4 +256,12 @@ public:
         }
         return svFailed;
     }
+
+    bool hasPermissions(enPermissions permssions)
+    {
+        if (permssions == enPermissions::pALL)
+            return true;
+
+        return  (permssions & _permissions) == permssions;
+    }
 };
