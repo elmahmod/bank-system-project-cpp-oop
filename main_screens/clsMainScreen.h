@@ -9,6 +9,7 @@
 #include "../transaction_screens/clsTransactionsScreen.h"
 #include "../manage_users_screens/clsManageUsersScreen.h"
 #include "../libraries/clsInputValidate.h"
+#include "../login_screens/global.h"
 
 class clsMainScreen : protected clsScreen
 {
@@ -74,9 +75,10 @@ private:
         clsManageUsersScreen::showManageUsersMenu();
     }
 
-    static void _showEndScreen()
+    static void _logout()
     {
-        cout << "\n\tEnd Screen Will be here . . .\n";
+        // cout << "\n\tEnd Screen Will be here . . .\n";
+        currentUser = clsUser::find("", "");
     }
 
     static void _performMainMenuOption(enMainMenuOptions option)
@@ -113,7 +115,7 @@ private:
             break;
 
         case eExit:
-            _showEndScreen();
+            _logout();
             break;
         }
     }
