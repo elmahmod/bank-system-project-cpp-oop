@@ -6,7 +6,6 @@ using namespace std;
 
 int main()
 {
-    // clsMainScreen::showMainMenu();
     while (true)
         clsLoginScreen::showLogin();
     return 0;
