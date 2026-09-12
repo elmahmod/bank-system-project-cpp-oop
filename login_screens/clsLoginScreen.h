@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "../objects/clsUser.h"
 #include "global.h"
