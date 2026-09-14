@@ -38,7 +38,7 @@ private:
     static clsUser _convertLineToUserObject(string line)
     {
         vector<string> vUserData = clsString::split(line, "#//#");
-        return clsUser(UpdateMode, vUserData[0], vUserData[1], vUserData[2], vUserData[3], vUserData[4], vUserData[5], stoi(vUserData[6]));
+        return clsUser(UpdateMode, vUserData[0], vUserData[1], vUserData[2], vUserData[3], vUserData[4], clsInputValidate::decryption(vUserData[5], 5), stoi(vUserData[6]));
     }
 
     static string _convertUserObjectToLine(clsUser user, string separator = "#//#")
@@ -49,7 +49,7 @@ private:
         line += user.getEmail() + separator;
         line += user.getPhone() + separator;
         line += user.getUsername() + separator;
-        line += user.getPassword() + separator;
+        line += clsInputValidate::encryption(user.getPassword(), 5) + separator;
         line += to_string(user.getPermissions());
         return line;
     }
@@ -61,7 +61,7 @@ private:
 
         record.dateTime = loginRegisterDataLine[0];
         record.username = loginRegisterDataLine[1];
-        record.password = loginRegisterDataLine[2];
+        record.password = clsInputValidate::decryption(loginRegisterDataLine[2], 5);
         record.permissions = stoi(loginRegisterDataLine[3]);
 
         return record;
@@ -146,7 +146,7 @@ private:
         string line = "";
         line += clsDate::getSystemDateTimeString() + separator;
         line += _username + separator;
-        line += _password + separator;
+        line += clsInputValidate::encryption(_password, 5) + separator;
         line += to_string(_permissions);
         return line;
     }

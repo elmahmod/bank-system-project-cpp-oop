@@ -98,4 +98,24 @@ public:
 
         return answer == 'y' || answer == '\n';
     }
+
+    static string encryption(const string &originalText, int key)
+    {
+        string encryptedText = originalText;
+        for (char &c : encryptedText) // we used range-based in this time not index-based
+        {
+            c += key;
+        }
+        return encryptedText;
+    }
+
+    static string decryption(const string &encryptedText, int key)
+    {
+        string decryptedText = encryptedText;
+        for (char &c : decryptedText) // we used range-based in this time not index-based
+        {
+            c -= key;
+        }
+        return decryptedText;
+    }
 };
