@@ -7,6 +7,7 @@
 #include "clsUpdateClientScreen.h"
 #include "clsFindClientScreen.h"
 #include "clsLoginRegisterScreen.h"
+#include "../transaction_screens/clsTransferLogScreen.h"
 #include "../transaction_screens/clsTransactionsScreen.h"
 #include "../manage_users_screens/clsManageUsersScreen.h"
 #include "../libraries/clsInputValidate.h"
@@ -25,13 +26,14 @@ private:
         eShowTransactionsMenu,
         eManageUsers,
         eLoginRegister,
+        eTransferRegister,
         eExit
     };
 
     static enMainMenuOptions _readMainMenuOption(const string &message)
     {
         int option = 0;
-        option = clsInputValidate::readIntNumberBetween(1, 9, message);
+        option = clsInputValidate::readIntNumberBetween(1, 10, message);
         return static_cast<enMainMenuOptions>(option);
     }
 
@@ -82,6 +84,11 @@ private:
         clsLoginRegisterScreen::showLoginRegister();
     }
 
+    static void _showTransferRegisterScreen()
+    {
+        clsTransferLogScreen::showTransferLog();
+    }
+
     static void _logout()
     {
         // cout << "\n\tEnd Screen Will be here . . .\n";
@@ -125,6 +132,10 @@ private:
             _showLoginRegisterScreen();
             break;
 
+        case eTransferRegister:
+            _showTransferRegisterScreen();
+            break;
+
         case eExit:
             _logout();
             break;
@@ -152,7 +163,8 @@ public:
             cout << setw(37) << left << "" << "\t[6] Transactions." << endl;
             cout << setw(37) << left << "" << "\t[7] Manage Users." << endl;
             cout << setw(37) << left << "" << "\t[8] Login Register." << endl;
-            cout << setw(37) << left << "" << "\t[9] Logout." << endl;
+            cout << setw(37) << left << "" << "\t[9] Transfer Register." << endl;
+            cout << setw(37) << left << "" << "\t[10] Logout." << endl;
             cout << setw(37) << left << "" << string(60, '=') << endl;
             cout << setw(37) << left << "";
 

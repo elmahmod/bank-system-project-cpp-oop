@@ -5,11 +5,23 @@
 #include <string>
 #include "clsPerson.h"
 #include "../libraries/clsString.h"
-
 using namespace std;
 
 class clsBankClient : public clsPerson
 {
+
+public:
+    struct stTransferRegisterRecord
+    {
+        string dateTime;
+        string sourceAccNumber;
+        string destinationAccNumber;
+        double transferAmount;
+        double srcBalanceAfter;
+        double srcBalanceBefore;
+        string username;
+    };
+
 private:
     enum enMode
     {
@@ -95,6 +107,47 @@ private:
                 return;
             }
         }
+    }
+
+    string _getTransferRecordLine(double transferAmount, clsBankClient destinationClient, string username, string separator = "#//#")
+    {
+        string line = "";
+        line += clsDate::getSystemDateTimeString() + separator;
+        line += _accountNumber + separator;
+        line += destinationClient._accountNumber + separator;
+        line += to_string(transferAmount) + separator;
+        line += to_string(_balance) + separator;
+        line += to_string(destinationClient._balance) + separator;
+        line += username;
+
+        return line;
+    }
+
+    void _transferRegister(double transferAmount, clsBankClient destinationClient, string username)
+    {
+        ofstream file("files/transfers.txt", ios::app);
+
+        if (file.is_open())
+        {
+            file << _getTransferRecordLine(transferAmount, destinationClient, username) << endl;
+        }
+    }
+
+    static stTransferRegisterRecord _convertTransferRegisterLineToRecord(string line)
+    {
+        vector<string> vTransferData = clsString::split(line, "#//#");
+
+        stTransferRegisterRecord transferRecord;
+
+        transferRecord.dateTime = vTransferData[0];
+        transferRecord.sourceAccNumber = vTransferData[1];
+        transferRecord.destinationAccNumber = vTransferData[2];
+        transferRecord.transferAmount = stod(vTransferData[3]);
+        transferRecord.srcBalanceAfter = stod(vTransferData[4]);
+        transferRecord.srcBalanceBefore = stod(vTransferData[5]);
+        transferRecord.username = vTransferData[6];
+
+        return transferRecord;
     }
 
 public:
@@ -261,20 +314,40 @@ public:
         return totalBalance;
     }
 
-    bool transfer(clsBankClient &toClient, double transferAmmount)
+    bool transfer(clsBankClient &destinationClient, double transferamount, string username)
     {
-        if (_accountNumber == toClient._accountNumber)
+        if (_accountNumber == destinationClient._accountNumber)
             return false;
 
-        if (transferAmmount <= 0 || transferAmmount > _balance)
+        if (transferamount <= 0 || transferamount > _balance)
             return false;
 
-        _balance -= transferAmmount;
-        toClient._balance += transferAmmount;
+        _balance -= transferamount;
+        destinationClient._balance += transferamount;
 
         save();
-        toClient.save();
+        destinationClient.save();
+        _transferRegister(transferamount, destinationClient, username);
 
         return true;
+    }
+
+    static vector<stTransferRegisterRecord> getTransferRegisterList()
+    {
+        vector<stTransferRegisterRecord> vTransferRegisterRecords;
+
+        ifstream file("files/transfers.txt");
+
+        if (file.is_open())
+        {
+            string line = "";
+
+            while (getline(file, line))
+            {
+                vTransferRegisterRecords.push_back(_convertTransferRegisterLineToRecord(line));
+            }
+        }
+
+        return vTransferRegisterRecords;
     }
 };

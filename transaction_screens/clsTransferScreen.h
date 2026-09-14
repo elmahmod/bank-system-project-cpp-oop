@@ -66,10 +66,10 @@ public:
         clsBankClient sourceClient = clsBankClient::find(_readAccountNumber("\nPlease enter account number to transfer from: "));
         _printClientRecordLine(sourceClient);
 
-        clsBankClient toClient = clsBankClient::find(_readAccountNumber("\nPlease enter account number to transfer to: "));
-        _printClientRecordLine(toClient);
+        clsBankClient destinationClient = clsBankClient::find(_readAccountNumber("\nPlease enter account number to transfer to: "));
+        _printClientRecordLine(destinationClient);
 
-        if (sourceClient.getAccountNumber() == toClient.getAccountNumber())
+        if (sourceClient.getAccountNumber() == destinationClient.getAccountNumber())
         {
             cout << "\nYou cannot transfer money to the same account.\n";
             return;
@@ -79,11 +79,11 @@ public:
 
         if (clsInputValidate::confirmAction("\nAre you sure you want to perform this operation? (y-n): "))
         {
-            if (sourceClient.transfer(toClient, transferAmount))
+            if (sourceClient.transfer(destinationClient, transferAmount, currentUser.getUsername()))
             {
                 cout << "\nTransfer done successfully :)\n";
                 _printClientRecordLine(sourceClient);
-                _printClientRecordLine(toClient);
+                _printClientRecordLine(destinationClient);
             }
             else
             {
