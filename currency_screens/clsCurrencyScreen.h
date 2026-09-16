@@ -28,6 +28,7 @@ private:
 
     static void _showAllCurrenciesScreen()
     {
+        clsCurrenciesListScreen::showCurrenciesList();
     }
 
     static void _showFindCurrencyScreen()
