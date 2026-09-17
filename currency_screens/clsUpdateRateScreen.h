@@ -39,7 +39,7 @@ public:
     {
         _drawScreenHeader("Update Rate Screen");
 
-        clsCurrency currency = clsCurrency::findByCode(_readCurrrencyCode("\nPlease enter currency country: "));
+        clsCurrency currency = clsCurrency::findByCode(_readCurrrencyCode("\nPlease enter currency code: "));
 
         _printCurrency(currency);
 

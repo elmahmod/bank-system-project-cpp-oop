@@ -44,6 +44,7 @@ private:
 
     static void _showCurrencyCalculatorScreen()
     {
+        clsCurrencyCalculatorScreen::showCurrencyCalculator();
     }
 
     static void _performMainMenuOption(enCurrencyMenuOption option)

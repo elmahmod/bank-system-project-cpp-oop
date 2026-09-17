@@ -162,4 +162,22 @@ public:
     {
         return _loadCurennciesDataFromFile();
     }
+
+    float convertToUSD(float amount)
+    {
+        return (float)amount / getRate();
+    }
+
+    float convertToAnotherCurrency(float amount, clsCurrency currencyTo)
+    {
+        if (this->getCurrencyCode() == currencyTo.getCurrencyCode())
+            return amount;
+
+        float amountInUSD = convertToUSD(amount);
+
+        if (currencyTo.getCurrencyCode() == "USD")
+            return amountInUSD;
+
+        return (float)amountInUSD * currencyTo.getRate();
+    }
 };
